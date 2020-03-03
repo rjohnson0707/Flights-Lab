@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<section id="show-page">
+  <div>Seat: </div>
+  <div><%= ticket.seat %></div>
+  <div>Price: </div>
+  <div><%= ticket.price %></div>
+  <div>Flight #: </div>
+  <div><%= ticket.departs.toLocaleString();  %></div>
+</section>
+<br><br><h2>Add </h2>
+<form id="add-destination-form" method="POST"
+  action="/flights/<%= ticket._id %>/destinations">
+  <label>Destination Airport:</label>
+  <select name="destAirport">
+    <option value="AUS">AUS</option>
+    <option value="DFW">DFW</option>
+    <option value="DEN">DEN</option>
+    <option value="LAX">LAX</option>
+    <option value="SAN">SAN</option>
+  </select>
+  <input type="datetime-local" name="arrival" value="<%= defaultDate %>" required>
+  <input type="submit" value="Add Destination">
+</form>
+
+<% if (flight.destinations.length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Airport</th>
+        <th>Arrival</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flight.destinations.sort((a, b) => { return a.arrival - b.arrival}); %> 
+      <% flight.destinations.forEach(function(dest) { %>
+        <tr>
+          <td><%= dest.destAirport %></td>
+          <% if (dest.arrival)  { %> 
+          <td><%= dest.arrival.toLocaleString() %></td>
+          <% } %> 
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } else { %>
+  <h5>No Destination Airport Yet....</h5>
+<% } %>
+
+<%- include('../partials/footer') %>
