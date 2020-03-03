@@ -24,12 +24,3 @@ function create(req, res) {
         res.redirect(`/flights/${req.body.flight}`);
     });
 }
-
-// function addToFlight(req, res) {
-//     Flight.findById(req.params.id, function(err, flight) {
-//         flight.ticket.push(req.body.ticketId);
-//         flight.save(function(err) {
-//             res.redirect(`/flights/${flight._id}`);
-//         });
-//     });
-// }
